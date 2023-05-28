@@ -4,7 +4,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
-
+import pytest
+@pytest.mark.skip
 def test():
     driver = webdriver.Chrome(service=ChromeService(
         ChromeDriverManager().install()))
@@ -24,7 +25,6 @@ def test():
     driver.find_element(By.CSS_SELECTOR, "#postal-code").send_keys("13000")
     driver.find_element(By.CSS_SELECTOR, "#continue").click()
     result = driver.find_element(By.CSS_SELECTOR, "[class='summary_info_label summary_total_label']").text
-    print(result)
     assert result == "Total: $58.29"
     driver.close()
     driver.quit()

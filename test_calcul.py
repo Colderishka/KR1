@@ -5,7 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from time import sleep
 
 def test():
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
@@ -15,9 +15,10 @@ def test():
 
     driver.find_element(By.CSS_SELECTOR, '#delay').clear()
     driver.find_element(By.CSS_SELECTOR, '#delay').send_keys("45")
-    driver.find_element(By.XPATH, '//*[@id="calculator"]/div[2]/span[1]').click()
-    driver.find_element(By.XPATH, '//*[@id="calculator"]/div[2]/span[4]').click()
-    driver.find_element(By.XPATH, '//*[@id="calculator"]/div[2]/span[2]').click()
+    driver.find_element(By.XPATH, '//*[@id="calculator"]//span[contains(text(), 7)]').click()
+    driver.find_element(By.XPATH, '//*[@id="calculator"]//span[contains(text(), "+")]').click()
+    driver.find_element(By.XPATH, '//*[@id="calculator"]//span[contains(text(), 8)]').click()
+    sleep(3)
     driver.find_element(By.CSS_SELECTOR, "[class='btn btn-outline-warning']").click()
     waiter.until(EC.text_to_be_present_in_element( (By.CSS_SELECTOR, "[class='screen']"), '15'))
     result = driver.find_element(By.CSS_SELECTOR, "[class='screen']").text
@@ -25,6 +26,5 @@ def test():
 
     driver.close()
     driver.quit()
-
 
 
